@@ -102,6 +102,7 @@ class EditEmpleadoFragment : Fragment() {
             .setCancelable(false)
             .setPositiveButton("Sí") { _, _ ->
                 empleado?.let { EmpleadoRepository.instance.delete(it) }
+                Salir()
             }
             .setNegativeButton(
                 "No"
@@ -131,6 +132,7 @@ class EditEmpleadoFragment : Fragment() {
             .setCancelable(false)
             .setPositiveButton("Sí") { _, _ ->
                 empleado?.let { EmpleadoRepository.instance.edit(it) }
+                Salir()
             }
             .setNegativeButton(
                 "No"
@@ -140,8 +142,6 @@ class EditEmpleadoFragment : Fragment() {
         val alert = builder.create()
 
         alert.show()
-
-        Salir()
     }
 
     fun Salir(){
