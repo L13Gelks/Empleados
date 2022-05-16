@@ -98,7 +98,7 @@ class EditEmpleadoFragment : Fragment() {
     fun Eliminar(identificacion:Int){
         val builder = AlertDialog.Builder(context)
 
-        builder.setMessage("¿Desea modificar el registro?")
+        builder.setMessage("¿Desea eliminar el empleado?")
             .setCancelable(false)
             .setPositiveButton("Sí") { _, _ ->
                 empleado?.let { EmpleadoRepository.instance.delete(it) }
@@ -114,6 +114,8 @@ class EditEmpleadoFragment : Fragment() {
     }
 
     fun Editar(identificacion:String){
+        val builder = AlertDialog.Builder(context)
+
         val empleadoNombre = view?.findViewById<TextView>(R.id.edit_empleado_nombre)
         val empleadoId = view?.findViewById<TextView>(R.id.edit_empleado_id)
         val empleadoPuesto = view?.findViewById<TextView>(R.id.edit_empleado_puesto)
@@ -125,7 +127,19 @@ class EditEmpleadoFragment : Fragment() {
         empleado?.departamento = empleadoDepartamento?.text.toString()
         empleado?.avatar = encodeImage(imgAvatar.drawable.toBitmap())!!
 
-        empleado?.let { EmpleadoRepository.instance.edit(it) }
+        builder.setMessage("¿Desea editar el empleado?")
+            .setCancelable(false)
+            .setPositiveButton("Sí") { _, _ ->
+                empleado?.let { EmpleadoRepository.instance.edit(it) }
+            }
+            .setNegativeButton(
+                "No"
+            ) { _, _ ->
+
+            }
+        val alert = builder.create()
+
+        alert.show()
 
         Salir()
     }
